@@ -1,0 +1,27 @@
+<ion-view view-title="Tareas para hacer">
+  <ion-content>
+ 	<!--lista tareas para realizar-->
+ 	<!--mensaje de ausencia de tareas-->
+ 	
+
+ 	<div ng-hide="tasks.length" class="card">
+ 	  <div class="item item-text-wrap">
+ 	    No hay tareas para realizar hoy
+ 	  </div>
+ 	</div>
+
+	
+
+	<!--tareas para hacer en cards-->
+
+	<div ng-repeat="task in tasks track by $index" class="card">
+ 	  <div class="item item-divider">
+	    {{task.name}}
+	  </div>
+	  <div class="item item-text-wrap">
+	    {{task.descp}}
+	  </div>
+	  <ion-toggle ng-model="task.state" toggle-class="toggle-positive">Hecho</ion-toggle>
+ 	</div>
+  </ion-content>
+</ion-view>

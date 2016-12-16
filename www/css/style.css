@@ -1,0 +1,14 @@
+/* Empty. Add your own CSS if you like */
+.app-popup{	
+	height: 150px;
+}
+
+.app-about{	
+	min-height: 250px;
+	min-width: 400px;
+}
+
+
+.app-popup div{
+	margin-bottom: 25px;
+}

@@ -1,0 +1,29 @@
+<ion-view view-title="Tareas hechas">
+  <ion-content>
+  	
+
+  	<!--Lista de tareas hechas-->
+  	<div ng-hide="doneTasks.length" class="card">
+ 	  <div class="item item-text-wrap">
+ 	    No hay tareas realizadas
+ 	  </div>
+ 	</div>
+
+	
+
+	<!--tareas para hacer en cards-->
+
+	<div ng-repeat="task in doneTasks track by $index" class="card">
+ 	  <div class="item item-divider">
+	    {{task.name}}
+	  </div>
+	  <div class="item item-text-wrap">
+	    {{task.descp}}
+	  </div>	 
+ 	</div>
+
+
+  </ion-content>
+</ion-view>
+
+

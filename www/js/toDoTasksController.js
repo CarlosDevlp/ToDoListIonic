@@ -4,7 +4,7 @@
 * listar y cambiar el estado de las tareas por realizar
 */
 
-angular.module('starter.todotaskscontroller',['ngCordova.plugins.nativeStorage']).
+angular.module('starter.todotaskscontroller',[]).
 controller('ToDoTasksController', function($scope,$ionicActionSheet,$ionicPopup,$rootScope,APP_NAME,TODO_KEY,DONE_KEY){
 			
 	//$cordovaNativeStorage.remove("tasks-todo"); eliminar todas las tareas por hacer guardadas

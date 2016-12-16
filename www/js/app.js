@@ -4,11 +4,11 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ion-floating-menu','starter.todotaskscontroller','starter.donetaskscontroller'])
+angular.module('starter', ['ionic','ngCookies' ,'ion-floating-menu','starter.todotaskscontroller','starter.donetaskscontroller'])
 .constant('APP_NAME', "ToDoListIonic")
 .constant('TODO_KEY', 'tasks-todo')
 .constant('DONE_KEY', 'tasks-done')
-.run(function($ionicPlatform,$ionicPopup,$rootScope,APP_NAME,TODO_KEY,DONE_KEY,$cordovaNativeStorage) {
+.run(function($ionicPlatform,$ionicPopup,$rootScope,APP_NAME,TODO_KEY,DONE_KEY,$cookies) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -21,8 +21,14 @@ angular.module('starter', ['ionic', 'ion-floating-menu','starter.todotaskscontro
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+
+  });
     
-    //herramientas de permanencia de data y la data globalizada
+
+  
+  //-------------------------------------------
+ //herramientas de permanencia de data y la data globalizada
     //guardar todo en el storage local   
     $rootScope.tasks=[];
     $rootScope.doneTasks=[];
@@ -32,22 +38,25 @@ angular.module('starter', ['ionic', 'ion-floating-menu','starter.todotaskscontro
           this.removeData(key);
 
           if(key==TODO_KEY)
-                $cordovaNativeStorage.setItem(key,$rootScope.tasks);
+                window.localStorage.setItem(key, JSON.stringify($rootScope.tasks));
+                //$cookies.putObject(key,$rootScope.tasks);
           else
-                $cordovaNativeStorage.setItem(key,$rootScope.doneTasks);  
+                window.localStorage.setItem(key, JSON.stringify($rootScope.doneTasks));
+                //$cookies.putObject(key,$rootScope.doneTasks);  
           
         },
         "removeData":function(key){
-          $cordovaNativeStorage.remove(key); 
+          //$cookies.remove(key); 
+          window.localStorage.removeItem(key);
         },
-        "getData":function (key){
-          this.selectedKey=key;
-          $cordovaNativeStorage.getItem(key).then(function(data){
-              if($rootScope.Storage.selectedKey==TODO_KEY)
-                $rootScope.tasks=data;
-              else
-                $rootScope.doneTasks=data;  
-          });
+        "getData":function (key){          
+          if(key==TODO_KEY)
+            //$rootScope.tasks=$cookies.getObject(key) || [];
+            $rootScope.tasks=JSON.parse(window.localStorage.getItem(key)) || [];
+          else
+            //$rootScope.doneTasks=$cookies.getObject(key) || [];  
+            $rootScope.doneTasks=JSON.parse(window.localStorage.getItem(key)) || [];
+          
         }
 
     };
@@ -66,9 +75,7 @@ angular.module('starter', ['ionic', 'ion-floating-menu','starter.todotaskscontro
       
     };
 
-  });
 
-  
 })
 .config(function($stateProvider, $urlRouterProvider) {
   
